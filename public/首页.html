@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>麦克风权限请求</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #container {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>欢迎使用我们的读书网站</h1>
+        <p>为了提供更好的服务，我们需要使用您的麦克风。请允许使用麦克风权限。</p>
+        <button onclick="requestMicrophonePermission()">允许使用麦克风</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function requestMicrophonePermission() {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(function(stream) {
+                    document.getElementById('result').innerHTML = '感谢您允许使用麦克风。正在跳转到新页面...';
+                    // 在这里添加跳转到新网站的代码
+                    setTimeout(function() {
+                        window.location.href = "longin.html"; // 将此URL替换为您想跳转的网站页面
+                    }, 1000); // 1秒后跳转
+                })
+                .catch(function(err) {
+                    document.getElementById('result').innerHTML = '很抱歉，您没有允许使用麦克风。没有麦克风权限，您将无法使用本网站的全部功能。';
+                    console.log('错误: ' + err);
+                });
+        }
+    </script>
+</body>
+</html>
